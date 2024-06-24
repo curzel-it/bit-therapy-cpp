@@ -13,6 +13,7 @@ class GameWindow : public QWidget {
 private:
     QGraphicsScene* scene;
     Game* game;
+    double uiFps;
     std::string screenName;
     Rect frame;
     bool debugEnabled;
@@ -21,8 +22,14 @@ private:
     void buildUi();
 
 public:
-    GameWindow(QWidget *parent = nullptr);
-    void setup(Game *game, bool debugEnabled, std::string screenName, Rect frame);
+    GameWindow(
+        double uiFps, 
+        Game* game, 
+        bool debugEnabled, 
+        std::string screenName, 
+        Rect frame
+    );
+    
     void updateUi();
 };
 

@@ -19,9 +19,14 @@
 
 #include "game_window.h"
 
-GameWindow::GameWindow(QWidget *parent): QWidget(parent) {}
-
-void GameWindow::setup(Game *game, bool debugEnabled, std::string screenName, Rect frame) {
+GameWindow::GameWindow(
+    double uiFps,
+    Game* game, 
+    bool debugEnabled, 
+    std::string screenName, 
+    Rect frame
+) : QWidget(nullptr) {
+    this->uiFps = uiFps;
     this->debugEnabled = debugEnabled;
     this->game = game;
     this->screenName = screenName;
@@ -33,7 +38,7 @@ void GameWindow::setup(Game *game, bool debugEnabled, std::string screenName, Re
 void GameWindow::setupTimer() {
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &GameWindow::updateUi);
-    timer->start(50);
+    timer->start(1000 / uiFps);
 }
 
 void GameWindow::buildUi() {

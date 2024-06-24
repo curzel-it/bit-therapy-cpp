@@ -18,8 +18,10 @@
 namespace po = boost::program_options;
 
 static const double GAME_FPS = 30.0;
+static const double UI_FPS = 30.0;
 static const double ANIMATIONS_FPS = 10.0;
 static const double BASE_ENTITY_SIZE = 50.0;
+
 static const std::string SPECIES_PATH = "/Users/curzel/dev/bit-therapy/Species";
 static const std::string ASSETS_PATH = "/Users/curzel/dev/bit-therapy/PetsAssets";
 
@@ -103,8 +105,7 @@ void startGame(Screen screen, std::vector<std::string> species, bool debugEnable
     });
     game->addEntities(entities);
 
-    GameWindow* window = new GameWindow();
-    window->setup(game, debugEnabled, screen.name, screen.frame);
+    GameWindow* window = new GameWindow(UI_FPS, game, debugEnabled, screen.name, screen.frame);
     window->show();
 
     auto newThread = startGameLoop(game);

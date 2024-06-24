@@ -15,5 +15,5 @@ TEST(GravityTests, CanChangeEntityDirection) {
     
     Gravity gravity;
     gravity.update(std::chrono::milliseconds(100), entity);
-    EXPECT_EQ(entity->direction.y, 1.0);
+    EXPECT_FLOAT_EQ(entity->direction.y, 0.981);
 };
