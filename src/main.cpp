@@ -100,8 +100,8 @@ void startGames(std::vector<Screen> screens, std::vector<std::string> species, b
 void startGame(Screen screen, std::vector<std::string> species, bool debugEnabled) {
     Game* game = new Game(spritesRepo, speciesRepo, screen.name, GAME_FPS, ANIMATIONS_FPS, BASE_ENTITY_SIZE);
 
-    auto entities = compactMap<std::string, Entity*>(species, [](const std::string species) {
-        return petsBuilder->build(species);
+    auto entities = compactMap<std::string, Entity*>(species, [screen](const std::string species) {
+        return petsBuilder->build(species, screen.frame);
     });
     game->addEntities(entities);
 

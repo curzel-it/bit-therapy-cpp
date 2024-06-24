@@ -21,5 +21,8 @@ public:
         const double baseSize
     );
 
-    std::optional<Entity*> build(const std::string& species) const;
+    std::optional<Entity*> build(
+        const std::string& species,
+        const Rect& gameBounds
+    ) const;
 };

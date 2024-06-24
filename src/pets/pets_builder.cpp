@@ -16,7 +16,10 @@ PetsBuilder::PetsBuilder(
     baseSize(baseSize)
 {}
 
-std::optional<Entity*> PetsBuilder::build(const std::string& speciesId) const {
+std::optional<Entity*> PetsBuilder::build(
+    const std::string& speciesId,
+    const Rect& gameBounds
+) const {
     auto speciesOpt = speciesRepo->species(speciesId);
     auto spritesOpt = spritesRepo->sprites(speciesId);
 
@@ -35,7 +38,7 @@ std::optional<Entity*> PetsBuilder::build(const std::string& speciesId) const {
 
     Entity* entity = new Entity(animationFps, 50.0, 1.0, species, sprites, frame);
     entity->addCapability(std::make_shared<LinearMovement>());
-    entity->addCapability(std::make_shared<Gravity>());
+    entity->addCapability(std::make_shared<Gravity>(gameBounds.h));
 
     return entity;
 }

@@ -39,6 +39,14 @@ Rect Rect::offset(const Vector2d& v) const {
     return Rect(x + v.x, y + v.y, w, h);
 }
 
+double Rect::maxX() const {
+    return x + w;
+}
+
+double Rect::maxY() const {
+    return y + h;
+}
+
 std::string Rect::description() const {
     std::stringstream ss; 
     ss << std::fixed << std::setprecision(1);

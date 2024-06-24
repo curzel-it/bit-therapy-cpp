@@ -92,6 +92,8 @@
         "text_encoding": "cpp",
         "algorithm": "cpp",
         "source_location": "cpp",
-        "strstream": "cpp"
+        "strstream": "cpp",
+        "__availability": "cpp",
+        "future": "cpp"
     }
 }

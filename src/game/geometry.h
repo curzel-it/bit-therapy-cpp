@@ -30,6 +30,9 @@ struct Rect {
 
     Rect offset(const Vector2d& v) const;
 
+    double maxX() const;
+    double maxY() const;
+
     std::string description() const;
 };
 
