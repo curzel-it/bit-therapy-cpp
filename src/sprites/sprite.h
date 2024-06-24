@@ -11,8 +11,16 @@ private:
     TimedContentProvider<std::string> timedContentProvider;
 
 public:
-    Sprite(const std::vector<std::string> frames, double fps);
+    Sprite(
+        const std::string animationName,
+        const std::vector<std::string> frames, 
+        double fps
+    );
+    
+    std::string animationName;
+
     const std::string& currentFrame() const;
     const uint32_t numberOfFrames() const;
+
     void update(std::chrono::milliseconds timeSinceLastUpdate);
 };

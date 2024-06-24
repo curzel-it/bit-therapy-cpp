@@ -20,7 +20,7 @@ SpriteSet::SpriteSet() :
 
 Sprite SpriteSet::sprite(const std::string animationName, double fps) const {
     auto frames = spriteFrames(animationName);
-    Sprite sprite(frames, fps);
+    Sprite sprite(animationName, frames, fps);
     return sprite;
 }
 

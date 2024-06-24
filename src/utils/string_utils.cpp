@@ -1,20 +1,20 @@
 #include "string_utils.h"
 
-void updateByReplacing(std::string& input, const std::string& old_token, const std::string& new_token) {
-    if (old_token == "") { 
+void updateByReplacing(std::string& input, const std::string& oldToken, const std::string& newToken) {
+    if (oldToken == "") { 
         return; 
     }
-    size_t start_pos = input.find(old_token);
+    size_t start_pos = input.find(oldToken);
 
     while (start_pos != std::string::npos) {
-        input.replace(start_pos, old_token.length(), new_token);
-        start_pos = input.find(old_token, start_pos + new_token.length());
+        input.replace(start_pos, oldToken.length(), newToken);
+        start_pos = input.find(oldToken, start_pos + newToken.length());
     }
 }
 
-std::string replace(const std::string input, const std::string& old_token, const std::string& new_token) {
+std::string replace(const std::string input, const std::string& oldToken, const std::string& newToken) {
     std::string working = input;
-    updateByReplacing(working, old_token, new_token);
+    updateByReplacing(working, oldToken, newToken);
     return working;
 }
 

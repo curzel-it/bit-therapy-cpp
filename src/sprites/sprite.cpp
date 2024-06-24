@@ -6,7 +6,14 @@
 #include <string>
 #include <vector>
 
-Sprite::Sprite(const std::vector<std::string> frames, double fps) : timedContentProvider(frames, fps) {}
+Sprite::Sprite(
+    const std::string animationName,
+    const std::vector<std::string> frames, 
+    double fps
+) : 
+    animationName(animationName),
+    timedContentProvider(frames, fps) 
+{}
 
 const std::string& Sprite::currentFrame() const {    
     return timedContentProvider.currentFrame();

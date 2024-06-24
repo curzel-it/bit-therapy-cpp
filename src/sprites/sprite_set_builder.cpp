@@ -2,6 +2,7 @@
 #include "sprite_set.h"
 #include "sprite_set_builder.h"
 
+#include <iostream>
 #include <map>
 #include <optional>
 #include <regex>
@@ -76,15 +77,11 @@ std::optional<SpriteFrame> SpriteSetBuilder::spriteFrameFromPath(const std::stri
     std::regex re("^(.+?)_([a-zA-Z]+)-([0-9]+)$");
     std::smatch matches;
 
-    auto name = fileName(
-        replace(
-            replace(
-                replace(path, "_walk-", "_movement-"), 
-                "_fly-", "_movement-"
-            ), 
-            "_move-", "_movement-"
-        )
-    );
+    std::string name = fileName(path);
+    updateByReplacing(name, "_walk-", "_movement-");
+    updateByReplacing(name, "_fly-", "_movement-");
+    updateByReplacing(name, "_move-", "_movement-");
+    updateByReplacing(name, "_drag-", "_fall-");
 
     if (std::regex_match(name, matches, re)) {
         std::string species = matches[1];

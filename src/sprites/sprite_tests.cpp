@@ -6,12 +6,12 @@
 #include <string>
 
 TEST(SpriteTests, CurrentFrame) {
-    Sprite sprite({"10", "20", "30"}, 1.0);
+    Sprite sprite("", {"10", "20", "30"}, 1.0);
     EXPECT_EQ(sprite.currentFrame(), "10");
 }
 
 TEST(SpriteTests, NextFrameAdvance) {
-    Sprite sprite({"10", "20", "30"}, 1.0);
+    Sprite sprite("", {"10", "20", "30"}, 1.0);
 
     sprite.update(std::chrono::milliseconds(500));
     EXPECT_EQ(sprite.currentFrame(), "10");
@@ -24,7 +24,7 @@ TEST(SpriteTests, NextFrameAdvance) {
 }
 
 TEST(SpriteTests, NextFrameWithInsufficientTimeDoesNotAdvance) {
-    Sprite sprite({"10", "20", "30"}, 1.0);
+    Sprite sprite("", {"10", "20", "30"}, 1.0);
 
     sprite.update(std::chrono::milliseconds(300));
     EXPECT_EQ(sprite.currentFrame(), "10");

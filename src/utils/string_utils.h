@@ -7,8 +7,9 @@
 #include <optional>
 #include <string>
 
-void updateByReplacing(std::string& input, const std::string& old_token, const std::string& new_token);
-std::string replace(const std::string input, const std::string& old_token, const std::string& new_token);
+void updateByReplacing(std::string& input, const std::string& oldToken, const std::string& newToken);
+
+std::string replace(const std::string input, const std::string& oldToken, const std::string& newToken);
 
 std::optional<uint32_t> parseInt(const std::string s);
 

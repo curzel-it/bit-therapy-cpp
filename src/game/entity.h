@@ -40,8 +40,7 @@ public:
     const std::string speciesId() const;
 
     void update(std::chrono::milliseconds timeSinceLastUpdate);
-    void changeSprite(std::string animationName);
-    void setFrame(Rect newFrame);
+    void changeSprite(const std::string& animationName);
     void addCapability(std::shared_ptr<EntityCapability> capability);
 
     std::string description() const;
