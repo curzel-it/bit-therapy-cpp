@@ -12,7 +12,11 @@
 #include "geometry.h"
 
 TEST(GameTests, CanUpdateCascade) {
-    Game game(nullptr, nullptr, "test", 10.0, 10.0, 50.0);
+    Game game(
+        nullptr, nullptr,         
+        "test", Rect(0.0, 0.0, 100.0, 100.0), 
+        10.0, 10.0, 50.0
+    );
 
     auto spriteSet = SpriteSet(
         std::vector<std::string>({"movement-0", "movement-1", "movement-2"}), 

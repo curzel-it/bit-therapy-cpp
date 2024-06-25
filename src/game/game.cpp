@@ -16,6 +16,7 @@ Game::Game(
     const SpritesRepository* spritesRepo,
     const SpeciesRepository* speciesRepo,
     std::string screenName,
+    Rect bounds,
     double gameFps, 
     double animationFps, 
     double baseEntitySize
@@ -23,6 +24,7 @@ Game::Game(
     spritesRepo(spritesRepo), 
     speciesRepo(speciesRepo), 
     screenName(screenName),
+    bounds(bounds),
     gameFps(gameFps), 
     animationFps(animationFps), 
     baseEntitySize(baseEntitySize), 
@@ -68,11 +70,13 @@ std::string Game::description() {
     std::stringstream ss; 
 
     ss << "Game @" << this << std::endl;
-    ss << "  Running on " << screenName << std::endl;
-    ss << "  Entities (" << entities.size() << "):" << std::endl;
+    ss << "  Screen: " << screenName << std::endl;
+    ss << "  Origin: " << bounds.x << ", " << bounds.y << std::endl;
+    ss << "  Size: " << bounds.w << " x " << bounds.h << std::endl;
+    ss << "  Entities: " << entities.size() << std::endl << std::endl;
 
     for (const auto& entity : entities) {
-        ss << "    - " << entity->description() << " @ " << &entity << std::endl;
+        ss << entity->description() << std::endl;
     }
     return ss.str();
 }

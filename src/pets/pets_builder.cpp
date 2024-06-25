@@ -39,6 +39,7 @@ std::optional<Entity*> PetsBuilder::build(
     Entity* entity = new Entity(animationFps, 50.0, 1.0, species, sprites, frame);
     entity->addCapability(std::make_shared<LinearMovement>());
     entity->addCapability(std::make_shared<Gravity>(gameBounds.h));
+    entity->addCapability(std::make_shared<BounceWhenLateralBoundIsHit>(0, gameBounds.w));
 
     return entity;
 }

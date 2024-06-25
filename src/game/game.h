@@ -28,6 +28,7 @@ private:
     const SpeciesRepository* speciesRepo;
     const double animationFps;
     const double baseEntitySize;
+    const Rect bounds;
 
     std::vector<Entity*> entities;
 
@@ -39,6 +40,7 @@ public:
         const SpritesRepository* spritesRepo,
         const SpeciesRepository* speciesRepo,
         std::string screenName,
+        Rect bounds,
         double gameFps, 
         double animationFps, 
         double baseEntitySize

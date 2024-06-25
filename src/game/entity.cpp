@@ -59,7 +59,16 @@ void Entity::changeSprite(const std::string& animationName) {
 std::string Entity::description() const {
     auto spriteName = fileName(currentSpriteFrame());
     std::stringstream ss; 
-    ss << species->id << " " << spriteName << " " << frame.description();
+
+    ss << "Entity @" << this << std::endl;
+    ss << "  Species: " << species->id << std::endl;
+    ss << "  Sprite: " << spriteName << std::endl;
+    ss << "  dx: " << direction.x << std::endl;
+    ss << "  dy: " << direction.y << std::endl;
+    ss << "  x: " << frame.x << std::endl;
+    ss << "  y: " << frame.y << std::endl;
+    ss << "  w: " << frame.w << std::endl;
+    ss << "  h: " << frame.h << std::endl;
     return ss.str();
 }
 
