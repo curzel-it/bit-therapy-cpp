@@ -1,5 +1,7 @@
 #include "entity_pixmap_item.h"
 
+#include <iostream>
+
 GamePixmapItem::GamePixmapItem(
     const RenderedItem& item, 
     QGraphicsItem* parent
@@ -22,4 +24,20 @@ GamePixmapItem::GamePixmapItem(
 
     setPixmap(scaledPixmap);
     setPos(item.frame.x, item.frame.y);
+}
+
+void GamePixmapItem::mousePressEvent(QGraphicsSceneMouseEvent* event) {
+    std::cout << "Mouse mousePressEvent " << event << std::endl;
+}
+
+void GamePixmapItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event) {
+    std::cout << "Mouse mouseMoveEvent " << event << std::endl;
+}
+
+void GamePixmapItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
+    std::cout << "Mouse mouseReleaseEvent " << event << std::endl;
+}
+
+void GamePixmapItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) {
+    std::cout << "Mouse mouseDoubleClickEvent " << event << std::endl;
 }
