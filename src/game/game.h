@@ -16,8 +16,9 @@
 struct RenderedItem {
     std::string spritePath;
     Rect frame;
+    bool isFlipped;
 
-    RenderedItem(std::string spritePath, Rect frame);
+    RenderedItem(std::string spritePath, Rect frame, bool isFlipped);
 };
 
 class Game {    

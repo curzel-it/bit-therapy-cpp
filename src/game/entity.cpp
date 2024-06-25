@@ -60,7 +60,7 @@ std::string Entity::description() const {
     auto spriteName = fileName(currentSpriteFrame());
     std::stringstream ss; 
 
-    ss << "Entity @" << this << std::endl;
+    ss << "Entity @ " << this << std::endl;
     ss << "  Species: " << species->id << std::endl;
     ss << "  Sprite: " << spriteName << std::endl;
     ss << "  dx: " << direction.x << std::endl;

@@ -67,12 +67,18 @@ void GameWindow::updateUi() {
     for (const auto& item : game->render()) {
         auto path = QString::fromStdString(item.spritePath);        
         QPixmap pixmap(path);
+        if (item.isFlipped) {
+            QTransform transform;
+            transform.scale(-1, 1); 
+            pixmap = pixmap.transformed(transform);
+        }
         QPixmap scaledPixmap = pixmap.scaled(
             item.frame.w, 
             item.frame.h, 
             Qt::KeepAspectRatio, 
             Qt::FastTransformation
         );
+
         QGraphicsPixmapItem *pixmapItem = new QGraphicsPixmapItem(scaledPixmap);
         pixmapItem->setPos(frame.x + item.frame.x, frame.y + item.frame.y);
         scene->addItem(pixmapItem);

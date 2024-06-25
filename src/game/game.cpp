@@ -7,9 +7,14 @@
 #include "geometry.h"
 #include "../utils/utils.h"
 
-RenderedItem::RenderedItem(std::string spritePath, Rect frame) : 
+RenderedItem::RenderedItem(
+    std::string spritePath, 
+    Rect frame,
+    bool isFlipped
+) : 
     spritePath(spritePath), 
-    frame(frame) 
+    frame(frame),
+    isFlipped(isFlipped)
 {}
 
 Game::Game(
@@ -59,7 +64,11 @@ std::vector<RenderedItem> Game::render() {
     std::vector<RenderedItem> renderedItems({});
     
     for (const auto& entity : entities) {
-        auto item = RenderedItem(entity->currentSpriteFrame(), entity->frame);
+        auto item = RenderedItem(
+            entity->currentSpriteFrame(), 
+            entity->frame,
+            entity->direction.x < 0.0
+        );
         renderedItems.push_back(item);
     }
     return renderedItems;
@@ -69,7 +78,7 @@ std::string Game::description() {
     std::lock_guard<std::mutex> lock(mtx);
     std::stringstream ss; 
 
-    ss << "Game @" << this << std::endl;
+    ss << "Game @ " << this << std::endl;
     ss << "  Screen: " << screenName << std::endl;
     ss << "  Origin: " << bounds.x << ", " << bounds.y << std::endl;
     ss << "  Size: " << bounds.w << " x " << bounds.h << std::endl;
