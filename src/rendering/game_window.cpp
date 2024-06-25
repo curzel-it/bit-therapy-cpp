@@ -3,6 +3,7 @@
 #include <QGraphicsView>
 #include <QImage>
 #include <QLabel>
+#include <QMouseEvent>
 #include <QPainter>
 #include <QScrollArea>
 #include <QString>
@@ -17,6 +18,7 @@
 #include "../sprites/sprites.h"
 #include "../utils/utils.h"
 
+#include "entity_pixmap_item.h"
 #include "game_window.h"
 
 GameWindow::GameWindow(
@@ -65,22 +67,7 @@ void GameWindow::updateUi() {
     scene->clear();
 
     for (const auto& item : game->render()) {
-        auto path = QString::fromStdString(item.spritePath);        
-        QPixmap pixmap(path);
-        if (item.isFlipped) {
-            QTransform transform;
-            transform.scale(-1, 1); 
-            pixmap = pixmap.transformed(transform);
-        }
-        QPixmap scaledPixmap = pixmap.scaled(
-            item.frame.w, 
-            item.frame.h, 
-            Qt::KeepAspectRatio, 
-            Qt::FastTransformation
-        );
-
-        QGraphicsPixmapItem *pixmapItem = new QGraphicsPixmapItem(scaledPixmap);
-        pixmapItem->setPos(frame.x + item.frame.x, frame.y + item.frame.y);
+        GamePixmapItem* pixmapItem = new GamePixmapItem(item);
         scene->addItem(pixmapItem);
     }
 
@@ -92,8 +79,9 @@ void GameWindow::updateUi() {
         gameStateText->setPos(frame.x + 10, frame.y + 30);
 
         QGraphicsDropShadowEffect* shadowEffect = new QGraphicsDropShadowEffect();
-        shadowEffect->setBlurRadius(10);
+        shadowEffect->setBlurRadius(8);
         shadowEffect->setColor(Qt::black);
+        shadowEffect->setOffset(1.0, 1.0);
         gameStateText->setGraphicsEffect(shadowEffect);
     }
 }

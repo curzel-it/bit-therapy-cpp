@@ -1,5 +1,4 @@
-#ifndef GAME_WINDOW_H
-#define GAME_WINDOW_H
+#pragma once 
 
 #include <QGraphicsScene>
 #include <QLabel>
@@ -32,5 +31,3 @@ public:
     
     void updateUi();
 };
-
-#endif
