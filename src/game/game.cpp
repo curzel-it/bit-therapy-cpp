@@ -8,10 +8,12 @@
 #include "../utils/utils.h"
 
 RenderedItem::RenderedItem(
+    uint32_t id, 
     std::string spritePath, 
     Rect frame,
     bool isFlipped
 ) : 
+    id(id),
     spritePath(spritePath), 
     frame(frame),
     isFlipped(isFlipped)
@@ -65,6 +67,7 @@ std::vector<RenderedItem> Game::render() {
     
     for (const auto& entity : entities) {
         auto item = RenderedItem(
+            entity->id,
             entity->currentSpriteFrame(), 
             entity->frame,
             entity->direction.x < 0.0

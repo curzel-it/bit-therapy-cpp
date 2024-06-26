@@ -1,30 +1,33 @@
-#include "entity_pixmap_item.h"
+#include "game_pixmap_item.h"
 
 #include <iostream>
 
-GamePixmapItem::GamePixmapItem(
-    const RenderedItem& item, 
-    QGraphicsItem* parent
-) : QGraphicsPixmapItem(parent) {
+#include "../game/game.h"
+
+GamePixmapItem::GamePixmapItem() : QGraphicsPixmapItem(nullptr) {}
+
+void GamePixmapItem::setup(const RenderedItem& item, const Rect& bounds) {
     auto path = QString::fromStdString(item.spritePath);
     QPixmap pixmap(path);
 
     if (item.isFlipped) {
         QTransform transform;
         transform.scale(-1, 1);
-        pixmap = pixmap.transformed(transform, Qt::SmoothTransformation);
+        pixmap = pixmap.transformed(transform, Qt::FastTransformation);
     }
 
     QPixmap scaledPixmap = pixmap.scaled(
         item.frame.w,
         item.frame.h,
         Qt::KeepAspectRatio,
-        Qt::SmoothTransformation
+        Qt::FastTransformation
     );
 
     setPixmap(scaledPixmap);
-    setPos(item.frame.x, item.frame.y);
+    setPos(bounds.x + item.frame.x, bounds.y + item.frame.y);
 }
+
+// TODO: Send mouse events to a bus for processing on next frame
 
 void GamePixmapItem::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     std::cout << "Mouse mousePressEvent " << event << std::endl;

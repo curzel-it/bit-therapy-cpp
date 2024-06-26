@@ -11,6 +11,7 @@
 #include "../utils/utils.h"
 
 Entity::Entity(
+    uint32_t id,
     double fps, 
     double settingsBaseSize, 
     double settingsSpeedMultiplier,
@@ -18,6 +19,7 @@ Entity::Entity(
     const SpriteSet* spriteSet, 
     Rect frame
 ) :
+    id(id),
     fps(fps),
     speed(0.0),
     species(species), 

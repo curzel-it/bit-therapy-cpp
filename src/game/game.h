@@ -14,11 +14,12 @@
 #include "../species/species.h"
 
 struct RenderedItem {
+    uint32_t id;
     std::string spritePath;
     Rect frame;
     bool isFlipped;
 
-    RenderedItem(std::string spritePath, Rect frame, bool isFlipped);
+    RenderedItem(uint32_t id, std::string spritePath, Rect frame, bool isFlipped);
 };
 
 class Game {    

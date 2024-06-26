@@ -23,11 +23,13 @@ private:
     void setupSpeed(double settingsBaseSize, double settingsSpeedMultiplier);
 
 public:
+    uint32_t id;
     Rect frame;
     Vector2d direction;
     double speed;
 
     Entity(
+        uint32_t id,
         double fps, 
         double settingsBaseSize, 
         double settingsSpeedMultiplier,

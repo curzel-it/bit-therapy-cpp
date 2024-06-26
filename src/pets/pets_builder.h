@@ -8,6 +8,7 @@
 
 class PetsBuilder {
 private:
+    uint32_t nextId;
     const SpeciesRepository* speciesRepo;
     const SpritesRepository* spritesRepo;
     const double animationFps;
@@ -24,5 +25,5 @@ public:
     std::optional<Entity*> build(
         const std::string& species,
         const Rect& gameBounds
-    ) const;
+    );
 };

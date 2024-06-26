@@ -10,6 +10,7 @@ PetsBuilder::PetsBuilder(
     const double animationFps,
     const double baseSize
 ) : 
+    nextId(1000),
     speciesRepo(speciesRepo),
     spritesRepo(spritesRepo),
     animationFps(animationFps),
@@ -19,7 +20,7 @@ PetsBuilder::PetsBuilder(
 std::optional<Entity*> PetsBuilder::build(
     const std::string& speciesId,
     const Rect& gameBounds
-) const {
+) {
     auto speciesOpt = speciesRepo->species(speciesId);
     auto spritesOpt = spritesRepo->sprites(speciesId);
 
@@ -36,7 +37,7 @@ std::optional<Entity*> PetsBuilder::build(
         baseSize * species->scale
     );
 
-    Entity* entity = new Entity(animationFps, 50.0, 1.0, species, sprites, frame);
+    Entity* entity = new Entity(++nextId, animationFps, 50.0, 1.0, species, sprites, frame);
     entity->addCapability(std::make_shared<LinearMovement>());
     entity->addCapability(std::make_shared<Gravity>(gameBounds.h));
     entity->addCapability(std::make_shared<BounceWhenLateralBoundIsHit>(0, gameBounds.w));

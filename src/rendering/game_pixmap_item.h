@@ -7,6 +7,8 @@
 
 #include "../game/game.h"
 
+// TODO: Move from constructor to setup
+
 class GamePixmapItem : public QGraphicsPixmapItem {
 
 protected:
@@ -16,5 +18,7 @@ protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
 
 public:
-    GamePixmapItem(const RenderedItem& item, QGraphicsItem* parent = nullptr);
+    GamePixmapItem();
+
+    void setup(const RenderedItem& item, const Rect& bounds);
 };

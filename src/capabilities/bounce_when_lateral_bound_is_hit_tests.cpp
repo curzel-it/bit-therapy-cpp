@@ -10,7 +10,7 @@ TEST(BounceOnBoundHitTests, TurnsRightWhenHittingLeft) {
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
 
-    Entity* entity = new Entity(1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
+    Entity* entity = new Entity(0, 1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
     entity->direction = Vector2d(1.0, 0.0);
     
     entity->addCapability(std::make_shared<LinearMovement>());
@@ -27,7 +27,7 @@ TEST(BounceOnBoundHitTests, TurnsLeftWhenHittingRight) {
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
 
-    Entity* entity = new Entity(1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
+    Entity* entity = new Entity(0, 1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
     entity->direction = Vector2d(1.0, 0.0);
     
     entity->addCapability(std::make_shared<LinearMovement>());
@@ -44,7 +44,7 @@ TEST(BounceOnBoundHitTests, DoesNotChangeDirectionIfWithinBounds) {
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
 
-    Entity* entity = new Entity(1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
+    Entity* entity = new Entity(0, 1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
     entity->direction = Vector2d(1.0, 0.0);
     
     entity->addCapability(std::make_shared<BounceWhenLateralBoundIsHit>(0.0, 1000.0));
@@ -60,7 +60,7 @@ TEST(BounceOnBoundHitTests, DoesNotChangeDirectionIfAlreadyGoingAway) {
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
 
-    Entity* entity = new Entity(1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
+    Entity* entity = new Entity(0, 1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
     entity->direction = Vector2d(1.0, 0.0);
     
     entity->addCapability(std::make_shared<BounceWhenLateralBoundIsHit>(0.0, 1000.0));
