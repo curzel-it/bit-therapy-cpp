@@ -4,7 +4,11 @@
 
 #include "../game/game.h"
 
-GamePixmapItem::GamePixmapItem() : QGraphicsPixmapItem(nullptr) {}
+GamePixmapItem::GamePixmapItem(Game* game, uint32_t targetId) : QGraphicsPixmapItem(nullptr) {
+    this->targetId = targetId;
+    this->game = game;
+    this->isMouseDown = false;
+}
 
 void GamePixmapItem::setup(const RenderedItem& item, const Rect& bounds) {
     auto path = QString::fromStdString(item.spritePath);
@@ -24,23 +28,28 @@ void GamePixmapItem::setup(const RenderedItem& item, const Rect& bounds) {
     );
 
     setPixmap(scaledPixmap);
-    setPos(bounds.x + item.frame.x, bounds.y + item.frame.y);
+
+    setPos(
+        bounds.x + item.frame.x + dragDelta.x, 
+        bounds.y + item.frame.y + dragDelta.y
+    );
 }
 
-// TODO: Send mouse events to a bus for processing on next frame
-
 void GamePixmapItem::mousePressEvent(QGraphicsSceneMouseEvent* event) {
-    std::cout << "Mouse mousePressEvent " << event << std::endl;
+    isMouseDown = true;
+    mouseDownPosition = event->screenPos();
+    game->mouseDragStarted(targetId);
 }
 
 void GamePixmapItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event) {
-    std::cout << "Mouse mouseMoveEvent " << event << std::endl;
+    auto currentPosition = event->screenPos();
+    dragDelta.x = currentPosition.x() - mouseDownPosition.x();
+    dragDelta.y = currentPosition.y() - mouseDownPosition.y();
 }
 
 void GamePixmapItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
-    std::cout << "Mouse mouseReleaseEvent " << event << std::endl;
-}
-
-void GamePixmapItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) {
-    std::cout << "Mouse mouseDoubleClickEvent " << event << std::endl;
+    game->mouseDragEnded(targetId, dragDelta);
+    isMouseDown = false;
+    dragDelta.x = 0.0;
+    dragDelta.y = 0.0;
 }

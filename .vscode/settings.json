@@ -95,6 +95,7 @@
         "strstream": "cpp",
         "__availability": "cpp",
         "future": "cpp",
-        "qgraphicspixmapitem": "cpp"
+        "qgraphicspixmapitem": "cpp",
+        "qstring": "cpp"
     }
 }

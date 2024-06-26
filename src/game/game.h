@@ -49,10 +49,15 @@ public:
     );
     
     void update(std::chrono::milliseconds timeSinceLastUpdate);    
+    std::vector<RenderedItem> render();
+
     void addEntity(Entity* entity);    
     void addEntities(const std::vector<Entity*> entities);
     const uint32_t numberOfEntities();
-    std::vector<RenderedItem> render();
+    
+    void mouseDragStarted(const uint32_t& targetId);
+    void mouseDragEnded(const uint32_t& targetId, const Vector2d& delta);
+
     std::string description();
 };
 

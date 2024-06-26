@@ -76,6 +76,28 @@ std::vector<RenderedItem> Game::render() {
     }
     return renderedItems;
 }
+    
+void Game::mouseDragStarted(const uint32_t& targetId) {
+    std::lock_guard<std::mutex> lock(mtx);
+    for (auto& entity : entities) {
+        if (entity->id == targetId) {
+            entity->direction = Vector2d(0.0, 0.0);
+            entity->changeSprite(SPRITE_NAME_FALL);
+        }
+    }    
+}
+
+void Game::mouseDragEnded(const uint32_t& targetId, const Vector2d& delta) {
+    std::lock_guard<std::mutex> lock(mtx);
+    for (auto& entity : entities) {
+        if (entity->id == targetId) {
+            auto dx = delta.x > 0 ? 1.0 : -1.0;
+            entity->frame = entity->frame.offset(delta);
+            entity->direction = Vector2d(dx, 0.0);
+            entity->changeSprite(SPRITE_NAME_MOVEMENT);
+        }
+    }    
+}
 
 std::string Game::description() {
     std::lock_guard<std::mutex> lock(mtx);

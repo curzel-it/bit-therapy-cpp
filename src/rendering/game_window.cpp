@@ -105,7 +105,7 @@ void GameWindow::createNewItems(std::vector<uint32_t> ids) {
 }
 
 void GameWindow::createNewItem(uint32_t id) {
-    auto newItem = new GamePixmapItem();
+    auto newItem = new GamePixmapItem(game, id);
     itemsById.emplace(id, newItem);
     scene->addItem(newItem);
 }

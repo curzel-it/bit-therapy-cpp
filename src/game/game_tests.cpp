@@ -12,7 +12,8 @@
 #include "geometry.h"
 
 TEST(GameTests, CanUpdateCascade) {
-    Game game(
+    std::vector<RenderedItem> results({});
+    Game* game = new Game(
         nullptr, nullptr,         
         "test", Rect(0.0, 0.0, 100.0, 100.0), 
         10.0, 10.0, 50.0
@@ -28,35 +29,33 @@ TEST(GameTests, CanUpdateCascade) {
     Species species("test", 1.0, 1.0);            
 
     Entity ape(0, 10.0, 50.0, 1.0, &species, &spriteSet, initialFrame);
-    game.addEntity(&ape); 
+    game->addEntity(&ape); 
     
     auto linearMovement = std::make_shared<LinearMovement>();
     ape.addCapability(linearMovement);
 
-    std::vector<RenderedItem> results({});
-
-    game.update(std::chrono::milliseconds(100));
-    results = game.render();
+    game->update(std::chrono::milliseconds(100));
+    results = game->render();
     EXPECT_EQ(results.size(), 1);
     EXPECT_EQ(results[0].frame.x, 0.06);
 
-    game.update(std::chrono::milliseconds(100));
-    results = game.render();
+    game->update(std::chrono::milliseconds(100));
+    results = game->render();
     EXPECT_EQ(results.size(), 1);
     EXPECT_EQ(results[0].frame, Rect(0.12, 0.0, 1.0, 1.0));
 
-    game.update(std::chrono::milliseconds(100));
-    results = game.render();
+    game->update(std::chrono::milliseconds(100));
+    results = game->render();
     EXPECT_EQ(results.size(), 1);
     EXPECT_EQ(results[0].frame, Rect(0.18, 0.0, 1.0, 1.0));
 
-    game.update(std::chrono::milliseconds(100));
-    results = game.render();
+    game->update(std::chrono::milliseconds(100));
+    results = game->render();
     EXPECT_EQ(results.size(), 1);
     EXPECT_EQ(results[0].frame, Rect(0.24, 0.0, 1.0, 1.0));
 
-    game.update(std::chrono::milliseconds(100));
-    results = game.render();
+    game->update(std::chrono::milliseconds(100));
+    results = game->render();
     EXPECT_EQ(results.size(), 1);
     EXPECT_EQ(results[0].frame, Rect(0.3, 0.0, 1.0, 1.0));
 };
