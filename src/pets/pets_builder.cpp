@@ -39,11 +39,11 @@ std::optional<Entity*> PetsBuilder::build(
 
     Entity* entity = new Entity(++nextId, animationFps, 50.0, 1.0, species, sprites, frame);
     entity->addCapability(std::make_shared<LinearMovement>());
-    entity->addCapability(std::make_shared<BounceWhenLateralBoundIsHit>(0, gameBounds.w));
 
     if (entity->speciesId() == "snail") {
         entity->addCapability(std::make_shared<WallCrawler>(gameBounds));
     } else {
+        entity->addCapability(std::make_shared<BounceWhenLateralBoundIsHit>(0, gameBounds.w));
         entity->addCapability(std::make_shared<Gravity>(gameBounds.h));
     }
 

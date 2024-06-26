@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C++ Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Main",
+            "args": ["--debug", "--species", "ape", "--species", "betta", "--species", "snail"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "miDebuggerPath": "/Users/curzel/lldb-mi"
+        }
+    ]
+}

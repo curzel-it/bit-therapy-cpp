@@ -49,5 +49,5 @@ const std::vector<std::string> SpriteSet::spriteFrames(const std::string animati
     if (auto iter = animations.find(animationName); iter != animations.end()) {
        return iter->second;
     }
-    return {};
+    return {""};
 }

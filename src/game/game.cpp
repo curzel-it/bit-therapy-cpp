@@ -93,6 +93,10 @@ void Game::mouseDragEnded(const uint32_t& targetId, const Vector2d& delta) {
         if (entity->id == targetId) {
             auto dx = delta.x > 0 ? 1.0 : -1.0;
             entity->frame = entity->frame.offset(delta);
+            entity->frame.x = fmax(entity->frame.x, bounds.x);
+            entity->frame.x = fmin(entity->frame.x, bounds.w - entity->frame.w);
+            entity->frame.y = fmax(entity->frame.y, bounds.y);
+            entity->frame.y = fmin(entity->frame.y, bounds.h - entity->frame.h);
             entity->direction = Vector2d(dx, 0.0);
             entity->changeSprite(SPRITE_NAME_MOVEMENT);
         }

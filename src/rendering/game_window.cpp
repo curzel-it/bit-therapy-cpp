@@ -49,7 +49,7 @@ void GameWindow::buildUi() {
     scene = new QGraphicsScene();
     scene->setSceneRect(frame.x, frame.y, frame.w, frame.h);
 
-    gameStateText = scene->addText(QString::fromStdString("Loading..."));
+    gameStateText = scene->addText(QString::fromStdString(""));
     gameStateText->setDefaultTextColor(Qt::green);
     gameStateText->setFont(QFont("Courier New", 15, QFont::Medium));
     gameStateText->setPos(frame.x + 10, frame.y + 30);

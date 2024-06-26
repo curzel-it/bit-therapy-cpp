@@ -96,6 +96,14 @@
         "__availability": "cpp",
         "future": "cpp",
         "qgraphicspixmapitem": "cpp",
-        "qstring": "cpp"
+        "qstring": "cpp",
+        "random": "cpp",
+        "stdfloat": "cpp",
+        "cinttypes": "cpp",
+        "cfenv": "cpp"
+    },
+    "cmake.debugConfig": {
+        "MIMode": "lldb",
+        "miDebuggerPath": "/Users/curzel/lldb-mi"
     }
 }
