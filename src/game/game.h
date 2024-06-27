@@ -18,8 +18,15 @@ struct RenderedItem {
     std::string spritePath;
     Rect frame;
     bool isFlipped;
+    double zRotation;
 
-    RenderedItem(uint32_t id, std::string spritePath, Rect frame, bool isFlipped);
+    RenderedItem(
+        uint32_t id, 
+        std::string spritePath, 
+        Rect frame, 
+        bool isFlipped,
+        double zRotation
+    );
 };
 
 class Game {    
@@ -33,6 +40,9 @@ private:
     const Rect bounds;
 
     std::vector<Entity*> entities;
+
+    double isFlipped(const Entity* entity);
+    double rotation(const Entity* entity);
 
 public:
     const double gameFps;

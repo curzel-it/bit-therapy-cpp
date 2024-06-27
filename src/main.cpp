@@ -6,8 +6,6 @@
 #include <memory>
 #include <thread>
 
-#include "app_window.h"
-
 #include "game/game.h"
 #include "pets/pets.h"
 #include "rendering/rendering.h"

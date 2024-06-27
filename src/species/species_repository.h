@@ -1,5 +1,4 @@
-#ifndef SPECIES_REPOSITORY_H
-#define SPECIES_REPOSITORY_H
+#pragma once
 
 #include <map>
 #include <optional>
@@ -23,4 +22,4 @@ public:
     std::vector<std::string> availableSpecies() const;
 };
 
-#endif
+}

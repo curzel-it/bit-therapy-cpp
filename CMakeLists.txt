@@ -52,9 +52,14 @@ find_package(nlohmann_json 3.2.0 REQUIRED)
 find_package(Boost 1.65 REQUIRED COMPONENTS program_options)
 include_directories(${Boost_INCLUDE_DIRS})
 
+# Objective C++
+set(MACOS_SOURCES "src/rendering/macos_window_setup.mm")
+set_source_files_properties(macos_window_setup.mm PROPERTIES LANGUAGE OBJCXX)
+find_library(COCOA_LIBRARY Cocoa)
+
 # App executable
-add_executable(Main ${MAIN_SOURCES} ${CAPABILITIES_SOURCES} ${GAME_SOURCES} ${PETS_SOURCES} ${RENDERING_SOURCES} ${SPECIES_SOURCES} ${SPRITES_SOURCES} ${UTILS_SOURCES})
-target_link_libraries(Main PRIVATE nlohmann_json::nlohmann_json Qt6::Widgets ${Boost_LIBRARIES})
+add_executable(Main ${MAIN_SOURCES} ${CAPABILITIES_SOURCES} ${GAME_SOURCES} ${MACOS_SOURCES} ${PETS_SOURCES} ${RENDERING_SOURCES} ${SPECIES_SOURCES} ${SPRITES_SOURCES} ${UTILS_SOURCES})
+target_link_libraries(Main PRIVATE nlohmann_json::nlohmann_json Qt6::Widgets ${Boost_LIBRARIES} ${COCOA_LIBRARY})
 
 # Google Test
 enable_testing()

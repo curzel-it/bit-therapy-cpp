@@ -1,5 +1,4 @@
-#ifndef SPECIES_MODEL_H
-#define SPECIES_MODEL_H
+#pragma once
 
 #include <string>
 
@@ -12,4 +11,4 @@ public:
     Species(std::string id, double speed, double scale);
 };
 
-#endif
+}

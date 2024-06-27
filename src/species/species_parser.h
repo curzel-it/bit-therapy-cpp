@@ -1,5 +1,4 @@
-#ifndef SPECIES_PARSER_IMPL_H
-#define SPECIES_PARSER_IMPL_H
+#pragma once
 
 #include <optional>
 #include <string>
@@ -13,4 +12,4 @@ public:
     std::optional<Species> parse(const std::string& jsonString) const;
 };
 
-#endif
+}

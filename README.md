@@ -7,6 +7,8 @@ I'm using this project to **learn C++**, so it's gonna take a while.
 
 ## ⏳ Status
 
+Currently only macOS is supported.
+
 ### ✅ What's working
 * Basic Command line interface
 * Multi-monitor support

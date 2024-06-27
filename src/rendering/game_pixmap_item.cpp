@@ -1,24 +1,29 @@
 #include "game_pixmap_item.h"
 
 #include <iostream>
+#include <math.h>
 
 #include "../game/game.h"
 
-GamePixmapItem::GamePixmapItem(Game* game, uint32_t targetId) : QGraphicsPixmapItem(nullptr) {
+GamePixmapItem::GamePixmapItem(Yage::Game* game, uint32_t targetId) : QGraphicsPixmapItem(nullptr) {
     this->targetId = targetId;
     this->game = game;
     this->isMouseDown = false;
 }
 
-void GamePixmapItem::setup(const RenderedItem& item, const Rect& bounds) {
+void GamePixmapItem::setup(const Yage::RenderedItem& item, const Yage::Rect& bounds) {
     auto path = QString::fromStdString(item.spritePath);
-    QPixmap pixmap(path);
+    QTransform transform;
 
     if (item.isFlipped) {
-        QTransform transform;
         transform.scale(-1, 1);
-        pixmap = pixmap.transformed(transform, Qt::FastTransformation);
     }
+    if (item.zRotation) {
+        transform.rotateRadians(item.zRotation);
+    }
+
+    QPixmap pixmap(path);
+    pixmap = pixmap.transformed(transform, Qt::FastTransformation);
 
     QPixmap scaledPixmap = pixmap.scaled(
         item.frame.w,

@@ -9,8 +9,6 @@
 
 #include "../game/game.h"
 
-// TODO: Move from constructor to setup
-
 class GamePixmapItem : public QGraphicsPixmapItem {
 private:
     Game* game;

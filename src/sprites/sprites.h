@@ -1,5 +1,4 @@
-#ifndef SPRITES_H
-#define SPRITES_H
+#pragma once
 
 #include "sprite.h"
 #include "sprites_repository.h"

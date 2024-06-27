@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <iostream>
+#include <math.h>
 #include <sstream>
 
 #include "geometry.h"
@@ -11,12 +12,14 @@ RenderedItem::RenderedItem(
     uint32_t id, 
     std::string spritePath, 
     Rect frame,
-    bool isFlipped
+    bool isFlipped,
+    double zRotation
 ) : 
     id(id),
     spritePath(spritePath), 
     frame(frame),
-    isFlipped(isFlipped)
+    isFlipped(isFlipped),
+    zRotation(zRotation)
 {}
 
 Game::Game(
@@ -70,11 +73,32 @@ std::vector<RenderedItem> Game::render() {
             entity->id,
             entity->currentSpriteFrame(), 
             entity->frame,
-            entity->direction.x < 0.0
+            isFlipped(entity),
+            rotation(entity)
         );
         renderedItems.push_back(item);
     }
     return renderedItems;
+}
+
+double Game::isFlipped(const Entity* entity) {
+    return entity->direction.x < 0.0;
+}
+
+double Game::rotation(const Entity* entity) {
+    if (entity->direction.x == 0.0 && entity->direction.y == 0.0) {
+        return 0.0;
+    }
+    if (entity->direction.x == 0.0 && entity->direction.y < 0.0) {
+        return 1.5 * M_PI;
+    }
+    if (entity->direction.x == 0.0 && entity->direction.y > 0.0) {
+        return 0.5 * M_PI;
+    }
+    if (entity->direction.x <= 0.0 && entity->direction.y == 0.0 && entity->frame.y == bounds.y) {
+        return 1.0 * M_PI;
+    }
+    return 0.0;
 }
     
 void Game::mouseDragStarted(const uint32_t& targetId) {
