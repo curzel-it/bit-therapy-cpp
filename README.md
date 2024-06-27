@@ -16,7 +16,9 @@ Currently only macOS is supported.
 * Tests are passing
 
 ### ⏳ Coming soon
-* Support for most capabilities available in Swift
+* Loading capabilities from Species descriptor
+* Loading sprite definitions from Species descriptor
+* Windows support
 
 ### ❌ Known issues
 * n/a
