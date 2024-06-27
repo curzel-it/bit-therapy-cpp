@@ -10,5 +10,3 @@ public:
 
     Species(std::string id, double speed, double scale);
 };
-
-}

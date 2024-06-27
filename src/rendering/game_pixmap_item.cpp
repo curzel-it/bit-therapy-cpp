@@ -5,13 +5,13 @@
 
 #include "../game/game.h"
 
-GamePixmapItem::GamePixmapItem(Yage::Game* game, uint32_t targetId) : QGraphicsPixmapItem(nullptr) {
+GamePixmapItem::GamePixmapItem(Game* game, uint32_t targetId) : QGraphicsPixmapItem(nullptr) {
     this->targetId = targetId;
     this->game = game;
     this->isMouseDown = false;
 }
 
-void GamePixmapItem::setup(const Yage::RenderedItem& item, const Yage::Rect& bounds) {
+void GamePixmapItem::setup(const RenderedItem& item, const Rect& bounds) {
     auto path = QString::fromStdString(item.spritePath);
     QTransform transform;
 

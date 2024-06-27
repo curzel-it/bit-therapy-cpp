@@ -21,5 +21,3 @@ public:
     std::optional<const Species*> species(std::string speciesId) const;
     std::vector<std::string> availableSpecies() const;
 };
-
-}

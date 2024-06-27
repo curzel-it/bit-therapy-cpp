@@ -34,5 +34,3 @@ struct Rect {
 
     std::string description() const;
 };
-
-#endif
