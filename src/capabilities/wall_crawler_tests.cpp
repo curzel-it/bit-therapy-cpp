@@ -24,7 +24,7 @@ TEST(WallCrawlerTests, WillStartGoingUpAfterReachingRightBound) {
     EXPECT_FLOAT_EQ(entity->direction.y, -1.0);
 };
 
-TEST(WallCrawlerTests, WillStartGoingLeftAfterReachingTopBound) {
+TEST(WallCrawlerTests, WillTeleportToTopLeftCornerAfterReachingTopRightCorner) {
     Rect gameBounds(0.0, 0.0, 1000.0, 1000.0);
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
@@ -36,13 +36,14 @@ TEST(WallCrawlerTests, WillStartGoingLeftAfterReachingTopBound) {
     entity->addCapability(std::make_shared<WallCrawler>(gameBounds));
 
     entity->frame.x = 900.0;
-    entity->frame.y = 1.0;
+    entity->frame.y = -90.0;
     entity->update(std::chrono::milliseconds(10));
-    EXPECT_FLOAT_EQ(entity->direction.x, -1.0);
-    EXPECT_FLOAT_EQ(entity->direction.y, 0.0);
+    EXPECT_FLOAT_EQ(entity->frame.x, 0.0);
+    EXPECT_FLOAT_EQ(entity->direction.x, 0.0);
+    EXPECT_FLOAT_EQ(entity->direction.y, 1.0);
 };
 
-TEST(WallCrawlerTests, WillStartGoingDownAfterReachingLeftBound) {
+TEST(WallCrawlerTests, WillStartGoingDownAfterReachingTopBound) {
     Rect gameBounds(0.0, 0.0, 1000.0, 1000.0);
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
