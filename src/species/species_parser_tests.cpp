@@ -34,6 +34,9 @@ TEST(SpeciesParserTests, CanParseSpeciesFromFilePathWithoutScale) {
 
     ASSERT_TRUE(result.has_value());
     EXPECT_EQ(result->id, "panda");
+    EXPECT_EQ(result->dragPath, "drag");
+    EXPECT_EQ(result->movementPath, "walk");
+    EXPECT_EQ(result->zIndex, 0);
     EXPECT_DOUBLE_EQ(result->speed, 0.8);
     EXPECT_DOUBLE_EQ(result->scale, 1.0);
 }
@@ -47,4 +50,22 @@ TEST(SpeciesParserTests, CanParseSpeciesFromFilePathWithScale) {
     EXPECT_EQ(result->id, "cayman718");
     EXPECT_DOUBLE_EQ(result->speed, 1.7);
     EXPECT_DOUBLE_EQ(result->scale, 1.5);
+}
+
+TEST(SpeciesParserTests, CanParseAnimations) {
+    SpeciesParser parser;
+    auto path = "/Users/curzel/dev/bit-therapy/Species/panda.json";
+    auto result = parser.parseFromFile(path);
+
+    ASSERT_TRUE(result.has_value());
+    EXPECT_EQ(result->animations.size(), 8);
+}
+
+TEST(SpeciesParserTests, CanParseCapabilities) {
+    SpeciesParser parser;
+    auto path = "/Users/curzel/dev/bit-therapy/Species/panda.json";
+    auto result = parser.parseFromFile(path);
+
+    ASSERT_TRUE(result.has_value());
+    EXPECT_EQ(result->animations.size(), 8);
 }

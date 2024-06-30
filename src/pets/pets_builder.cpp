@@ -38,10 +38,13 @@ std::optional<Entity*> PetsBuilder::build(
     );
 
     Entity* entity = new Entity(++nextId, animationFps, 50.0, 1.0, species, sprites, frame);
+
+    bool isWallCrawler = std::find(species->capabilities.begin(), species->capabilities.end(), "WallCrawler") != species->capabilities.end();
+
     entity->addCapability(std::make_shared<LinearMovement>());
     entity->addCapability(std::make_shared<Gravity>(gameBounds.h));
 
-    if (entity->speciesId() == "snail") {
+    if (isWallCrawler) {
         entity->addCapability(std::make_shared<WallCrawler>(gameBounds));
     } else {
         entity->addCapability(std::make_shared<BounceWhenLateralBoundIsHit>(0, gameBounds.w));

@@ -105,8 +105,9 @@ void Game::mouseDragStarted(const uint32_t& targetId) {
     std::lock_guard<std::mutex> lock(mtx);
     for (auto& entity : entities) {
         if (entity->id == targetId) {
+            auto dragSprite = entity->species->dragPath;
             entity->direction = Vector2d(0.0, 0.0);
-            entity->changeSprite(SPRITE_NAME_FALL);
+            entity->changeSprite(dragSprite);
         }
     }    
 }
@@ -116,13 +117,15 @@ void Game::mouseDragEnded(const uint32_t& targetId, const Vector2d& delta) {
     for (auto& entity : entities) {
         if (entity->id == targetId) {
             auto dx = delta.x > 0 ? 1.0 : -1.0;
+            auto movementSprite = entity->species->movementPath;
+
             entity->frame = entity->frame.offset(delta);
             entity->frame.x = fmax(entity->frame.x, 0.0);
             entity->frame.x = fmin(entity->frame.x, bounds.w - entity->frame.w);
             entity->frame.y = fmax(entity->frame.y, 0.0);
             entity->frame.y = fmin(entity->frame.y, bounds.h - entity->frame.h);
             entity->direction = Vector2d(dx, 0.0);
-            entity->changeSprite(SPRITE_NAME_MOVEMENT);
+            entity->changeSprite(movementSprite);
         }
     }    
 }

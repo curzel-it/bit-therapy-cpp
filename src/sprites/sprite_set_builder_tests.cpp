@@ -1,6 +1,8 @@
 #include "sprite_set.h"
 #include "sprite_set_builder.h"
 
+#include "config_tests.h"
+
 #include <gtest/gtest.h>
 #include <map>
 #include <optional>
@@ -81,11 +83,11 @@ TEST(SpriteSetBuilderTests, CanGenerateSpriteSetFromFrames) {
     SpriteSetBuilder builder({});
 
     const std::vector<SpriteFrame> frames({
-        SpriteFrame({"a_movement-0", "a", SPRITE_NAME_MOVEMENT, 0}),
-        SpriteFrame({"a_movement-1", "a", SPRITE_NAME_MOVEMENT, 1}),
-        SpriteFrame({"a_movement-2", "a", SPRITE_NAME_MOVEMENT, 2}),
-        SpriteFrame({"a_fall-0", "a", SPRITE_NAME_FALL, 0}),
-        SpriteFrame({"a_fall-1", "a", SPRITE_NAME_FALL, 1}),
+        SpriteFrame({"a_walk-0", "a", SPRITE_NAME_MOVEMENT, 0}),
+        SpriteFrame({"a_walk-1", "a", SPRITE_NAME_MOVEMENT, 1}),
+        SpriteFrame({"a_walk-2", "a", SPRITE_NAME_MOVEMENT, 2}),
+        SpriteFrame({"a_drag-0", "a", SPRITE_NAME_DRAG, 0}),
+        SpriteFrame({"a_drag-1", "a", SPRITE_NAME_DRAG, 1}),
         SpriteFrame({"a_front-0", "a", SPRITE_NAME_FRONT, 0}),
         SpriteFrame({"a_front-1", "a", SPRITE_NAME_FRONT, 1}),
         SpriteFrame({"a_eat-0", "a", "eat", 0}),
@@ -97,39 +99,24 @@ TEST(SpriteSetBuilderTests, CanGenerateSpriteSetFromFrames) {
 
     auto result = someResult.value();
 
-    std::vector<std::string> expectedEat({"a_eat-0", "a_eat-1"});
-    std::map<std::string, std::vector<std::string>> expectedOtherAnimations({{"eat", expectedEat}});
-
     SpriteSet expected({
-        std::vector<std::string>({"a_movement-0", "a_movement-1", "a_movement-2"}),
-        std::vector<std::string>({"a_fall-0",  "a_fall-1"}), 
-        std::vector<std::string>({"a_front-0", "a_front-1"}),
-        expectedOtherAnimations
+        {SPRITE_NAME_MOVEMENT, {"a_walk-0", "a_walk-1", "a_walk-2"}},
+        {SPRITE_NAME_DRAG, {"a_drag-0",  "a_drag-1"}}, 
+        {SPRITE_NAME_FRONT, {"a_front-0", "a_front-1"}},
+        {"eat", {"a_eat-0", "a_eat-1"}},
     });
 
-    EXPECT_EQ(result.movementSprite(1.0).currentFrame(), "a_movement-0");
-    EXPECT_EQ(result.fallSprite(1.0).currentFrame(), "a_fall-0");
-    EXPECT_EQ(result.frontSprite(1.0).currentFrame(), "a_front-0");
+    EXPECT_EQ(result.sprite(SPRITE_NAME_MOVEMENT, 1.0).currentFrame(), "a_walk-0");
+    EXPECT_EQ(result.sprite(SPRITE_NAME_DRAG, 1.0).currentFrame(), "a_drag-0");
+    EXPECT_EQ(result.sprite(SPRITE_NAME_FRONT, 1.0).currentFrame(), "a_front-0");
     EXPECT_EQ(result.sprite("eat", 1.0).currentFrame(), "a_eat-0");
 };
 
-TEST(SpriteSetBuilderTests, CanAssignWalkToMovement) {
+TEST(SpriteSetBuilderTests, CanAssignSprites) {
     SpriteSetBuilder builder({});
 
     EXPECT_EQ(
-        builder.spriteFrameFromPath("./ape_movement-9.png"),
-        SpriteFrame({"./ape_movement-9.png", "ape", "movement", 9})
-    );
-    EXPECT_EQ(
-        builder.spriteFrameFromPath("./ape_fly-9.png"),
-        SpriteFrame({"./ape_fly-9.png", "ape", "movement", 9})
-    );
-    EXPECT_EQ(
         builder.spriteFrameFromPath("./ape_walk-9.png"),
-        SpriteFrame({"./ape_walk-9.png", "ape", "movement", 9})
-    );
-    EXPECT_EQ(
-        builder.spriteFrameFromPath("./ape_move-9.png"),
-        SpriteFrame({"./ape_move-9.png", "ape", "movement", 9})
+        SpriteFrame({"./ape_walk-9.png", "ape", "walk", 9})
     );
 }

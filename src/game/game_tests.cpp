@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "../config_tests.h"
 #include "../capabilities/capabilities.h"
 #include "../species/species.h"
 #include "../sprites/sprites.h"
@@ -20,10 +21,11 @@ TEST(GameTests, CanUpdateCascade) {
     );
 
     auto spriteSet = SpriteSet(
-        std::vector<std::string>({"movement-0", "movement-1", "movement-2"}), 
-        std::vector<std::string>({"fall-0", "fall-1", "fall-2"}),
-        std::vector<std::string>({"front-0", "front-1", "front-2"}),
-        std::map<std::string, std::vector<std::string>>({})
+        std::map<std::string, std::vector<std::string>>({
+            {SPRITE_NAME_MOVEMENT, {"walk-0", "walk-1", "walk-2"}}, 
+            {SPRITE_NAME_DRAG, {"drag-0", "drag-1", "drag-2"}},
+            {SPRITE_NAME_FRONT, {"front-0", "front-1", "front-2"}},
+        })
     );
     Rect initialFrame = Rect(0.0, 0.0, 1.0, 1.0);        
     Species species("test", 1.0, 1.0);            

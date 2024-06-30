@@ -17,12 +17,16 @@ void Gravity::update(std::chrono::milliseconds timeSinceLastUpdate, Entity * ent
     if (entity->frame.maxY() < groundY) {
         double timeStep = timeSinceLastUpdate.count() / 1000.0;
         Vector2d gravityEffect = gravityAcceleration * timeStep;
-        entity->direction = entity->direction + gravityEffect;
-        entity->changeSprite(SPRITE_NAME_FALL);
+        auto dragSprite = entity->species->dragPath;
+
+        entity->direction = entity->direction + gravityEffect;        
+        entity->changeSprite(dragSprite);
     } else if (entity->direction.y > 0.0) {
         auto dx = entity->direction.x > 0 ? 1.0 : -1.0;
+        auto movementSprite = entity->species->movementPath;
+
         entity->frame.y = groundY - entity->frame.h;
         entity->direction = Vector2d(dx, 0.0);
-        entity->changeSprite(SPRITE_NAME_MOVEMENT);
+        entity->changeSprite(movementSprite);
     }
 }

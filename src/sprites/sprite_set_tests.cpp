@@ -1,5 +1,7 @@
 #include "sprite_set.h"
 
+#include "config_tests.h"
+
 #include <gtest/gtest.h>
 #include <vector>
 #include <string>
@@ -13,15 +15,16 @@ std::vector<std::string> generate_sprite_names(const std::string& base_name, uin
 }
 
 TEST(SpriteSetTests, CanReferenceStandardSprites) {
-    std::vector<std::string> movement = generate_sprite_names(SPRITE_NAME_MOVEMENT, 3);
-    std::vector<std::string> fall = generate_sprite_names(SPRITE_NAME_FALL, 3);
-    std::vector<std::string> front = generate_sprite_names(SPRITE_NAME_FRONT, 3);
-    std::map<std::string, std::vector<std::string>> animations;
+    std::map<std::string, std::vector<std::string>> animations({
+        {SPRITE_NAME_MOVEMENT, generate_sprite_names(SPRITE_NAME_MOVEMENT, 3)},
+        {SPRITE_NAME_DRAG, generate_sprite_names(SPRITE_NAME_DRAG, 3)},
+        {SPRITE_NAME_FRONT, generate_sprite_names(SPRITE_NAME_FRONT, 3)},
+    });
 
-    SpriteSet sprite_set(movement, fall, front, animations);
+    SpriteSet sprite_set(animations);
 
-    ASSERT_EQ(sprite_set.spriteFrames(SPRITE_NAME_MOVEMENT)[0], "movement-0");
-    ASSERT_EQ(sprite_set.spriteFrames(SPRITE_NAME_FALL)[0], "fall-0");
+    ASSERT_EQ(sprite_set.spriteFrames(SPRITE_NAME_MOVEMENT)[0], "walk-0");
+    ASSERT_EQ(sprite_set.spriteFrames(SPRITE_NAME_DRAG)[0], "drag-0");
     ASSERT_EQ(sprite_set.spriteFrames(SPRITE_NAME_FRONT)[0], "front-0");
 }
 
@@ -31,7 +34,7 @@ TEST(SpriteSetTests, CanReferenceAnimations) {
     animations["run"] = generate_sprite_names("run", 5);
     animations["slide"] = generate_sprite_names("slide", 5);
 
-    SpriteSet sprite_set({}, {}, {}, animations);
+    SpriteSet sprite_set(animations);
 
     ASSERT_EQ(sprite_set.spriteFrames("jump")[0], "jump-0");
     ASSERT_EQ(sprite_set.spriteFrames("run")[0], "run-0");

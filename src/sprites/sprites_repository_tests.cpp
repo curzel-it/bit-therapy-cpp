@@ -25,7 +25,7 @@ TEST(SpritesRepositoryTests, CanLoadSpritesForAllSpecies) {
     for (const std::string& speciesId : allSpecies) {
         auto spriteSet = spritesRepo.sprites(speciesId);
         ASSERT_TRUE(spriteSet.has_value());
-        auto numberOfFrames = spriteSet.value()->frontSprite(1.0).numberOfFrames();
+        auto numberOfFrames = spriteSet.value()->sprite(SPRITE_NAME_FRONT, 1.0).numberOfFrames();
         ASSERT_NE(numberOfFrames, 0);
     }
 };

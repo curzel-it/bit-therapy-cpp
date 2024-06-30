@@ -15,7 +15,6 @@ class EntityCapability;
 class Entity {    
 private:
     double fps;
-    const Species* species;
     const SpriteSet* spriteSet;
     std::vector<std::shared_ptr<EntityCapability>> capabilities;
     Sprite currentSprite;
@@ -27,6 +26,7 @@ public:
     Rect frame;
     Vector2d direction;
     double speed;
+    const Species* species;
 
     Entity(
         uint32_t id,
@@ -39,7 +39,6 @@ public:
     );
     
     const std::string currentSpriteFrame() const;
-    const std::string speciesId() const;
 
     void update(std::chrono::milliseconds timeSinceLastUpdate);
     void changeSprite(const std::string& animationName);

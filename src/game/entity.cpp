@@ -27,10 +27,11 @@ Entity::Entity(
     frame(frame),
     direction(Vector2d(1.0, 0.0)),
     capabilities(std::vector<std::shared_ptr<EntityCapability>>()),
-    currentSprite(spriteSet->movementSprite(fps))
+    currentSprite(Sprite("", std::vector<std::string>({}), 1.0))
 {
+    auto movementSprite = species->movementPath;
     setupSpeed(settingsBaseSize, settingsSpeedMultiplier);
-    changeSprite(SPRITE_NAME_MOVEMENT); 
+    changeSprite(movementSprite); 
 }
 
 void Entity::addCapability(std::shared_ptr<EntityCapability> capability) {
@@ -39,10 +40,6 @@ void Entity::addCapability(std::shared_ptr<EntityCapability> capability) {
 
 const std::string Entity::currentSpriteFrame() const {
     return currentSprite.currentFrame();
-}
-
-const std::string Entity::speciesId() const {
-    return species->id;
 }
 
 void Entity::update(std::chrono::milliseconds timeSinceLastUpdate) {

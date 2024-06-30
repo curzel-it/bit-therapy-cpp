@@ -10,4 +10,5 @@ class SpeciesParser {
 public:
     std::optional<Species> parseFromFile(const std::string& filePath) const;
     std::optional<Species> parse(const std::string& jsonString) const;
+    std::optional<Species> parseAnimat(const std::string& jsonString) const;
 };

@@ -2,6 +2,8 @@
 #include "sprite_set.h"
 #include "sprite_set_builder.h"
 
+#include "config_tests.h"
+
 #include <iostream>
 #include <map>
 #include <optional>
@@ -50,13 +52,7 @@ std::optional<SpriteSet> SpriteSetBuilder::spriteSet(const std::vector<SpriteFra
         [](const SpriteFrame& frame) { return frame.animation; }, 
         [](const SpriteFrame& frame) { return frame.path; }
     );
-
-    return SpriteSet(
-        framesByAnimation[SPRITE_NAME_MOVEMENT],
-        framesByAnimation[SPRITE_NAME_FALL],
-        framesByAnimation[SPRITE_NAME_FRONT],
-        framesByAnimation
-    );
+    return SpriteSet(framesByAnimation);
 }
 
 std::vector<SpriteFrame> SpriteSetBuilder::spriteFramesFromPaths(const std::vector<std::string>& paths) const {
@@ -76,12 +72,7 @@ std::vector<SpriteFrame> SpriteSetBuilder::spriteFramesFromPaths(const std::vect
 std::optional<SpriteFrame> SpriteSetBuilder::spriteFrameFromPath(const std::string& path) const {
     std::regex re("^(.+?)_([a-zA-Z]+)-([0-9]+)$");
     std::smatch matches;
-
     std::string name = fileName(path);
-    updateByReplacing(name, "_walk-", "_movement-");
-    updateByReplacing(name, "_fly-", "_movement-");
-    updateByReplacing(name, "_move-", "_movement-");
-    updateByReplacing(name, "_drag-", "_fall-");
 
     if (std::regex_match(name, matches, re)) {
         std::string species = matches[1];
