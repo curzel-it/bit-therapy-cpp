@@ -40,7 +40,8 @@ std::optional<Species> SpeciesParser::parse(const std::string& jsonString) const
                 species.animations.emplace_back(
                     anim.value("id", "undefined"),
                     anim.value("position", SPECIES_ANIMATION_POSITION_FROM_ENTITY_BOTTOM_LEFT),
-                    anim.value("size", std::vector({1.0, 1.0}))
+                    anim.value("size", std::vector({1.0, 1.0})),
+                    anim.value("requiredLoops", 1)
                 );
             }
         }

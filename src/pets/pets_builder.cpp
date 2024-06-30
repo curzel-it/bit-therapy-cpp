@@ -41,6 +41,7 @@ std::optional<Entity*> PetsBuilder::build(
 
     bool isWallCrawler = std::find(species->capabilities.begin(), species->capabilities.end(), "WallCrawler") != species->capabilities.end();
 
+    entity->addCapability(std::make_shared<RandomAnimations>());
     entity->addCapability(std::make_shared<LinearMovement>());
     entity->addCapability(std::make_shared<Gravity>(gameBounds.h));
 

@@ -49,10 +49,11 @@ void Entity::update(std::chrono::milliseconds timeSinceLastUpdate) {
     currentSprite.update(timeSinceLastUpdate);
 }
 
-void Entity::changeSprite(const std::string& animationName) {
+uint32_t Entity::changeSprite(const std::string& animationName) {
     if (currentSprite.animationName != animationName) {
         currentSprite = spriteSet->sprite(animationName, fps);
     }
+    return 1000 * currentSprite.numberOfFrames() / fps;
 }
 
 std::string Entity::description() const {

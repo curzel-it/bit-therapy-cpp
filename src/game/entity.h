@@ -41,8 +41,9 @@ public:
     const std::string currentSpriteFrame() const;
 
     void update(std::chrono::milliseconds timeSinceLastUpdate);
-    void changeSprite(const std::string& animationName);
     void addCapability(std::shared_ptr<EntityCapability> capability);
+    
+    uint32_t changeSprite(const std::string& animationName);
 
     std::string description() const;
 };

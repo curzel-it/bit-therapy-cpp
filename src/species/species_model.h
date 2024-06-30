@@ -8,8 +8,14 @@ public:
     std::string id;
     std::string position;
     std::vector<double> size;
+    uint32_t requiredLoops;
 
-    SpeciesAnimation(std::string id, std::string position, std::vector<double> size);
+    SpeciesAnimation(
+        std::string id,
+        std::string position,
+        std::vector<double> size,
+        uint32_t requiredLoops
+    );
 };
 
 struct Species {
