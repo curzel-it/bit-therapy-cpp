@@ -49,12 +49,12 @@ find_package(Qt6 COMPONENTS Widgets REQUIRED)
 find_package(nlohmann_json 3.2.0 REQUIRED)
 
 # Boost
-find_package(Boost 1.65 REQUIRED COMPONENTS program_options)
+find_package(Boost 1.85 REQUIRED COMPONENTS program_options)
 include_directories(${Boost_INCLUDE_DIRS})
 
 # App executable
 add_executable(Main ${MAIN_SOURCES} ${CAPABILITIES_SOURCES} ${GAME_SOURCES} ${PETS_SOURCES} ${RENDERING_SOURCES} ${SPECIES_SOURCES} ${SPRITES_SOURCES} ${UTILS_SOURCES})
-target_link_libraries(Main PRIVATE nlohmann_json::nlohmann_json Qt6::Widgets ${Boost_LIBRARIES} ${COCOA_LIBRARY})
+target_link_libraries(Main PRIVATE nlohmann_json::nlohmann_json Qt6::Widgets ${Boost_LIBRARIES})
 
 # Google Test
 enable_testing()
