@@ -34,10 +34,25 @@ std::vector<std::thread> gameThreads;
 po::variables_map parseArgs(int argc, char *argv[]);
 std::vector<Screen> screensMatching(po::variables_map args);
 std::vector<std::string> selectedSpecies(po::variables_map args);
-void startGame(Screen screen, std::vector<std::string> species, bool debugEnabled);
-void startGames(std::vector<Screen> screens, std::vector<std::string> species, bool debugEnabled);
+
 void joinGameThreads();
 std::thread startGameLoop(Game* game);
+
+void startGame(    
+    bool debugEnabled,
+    double scaleMultiplier,
+    double speedMultiplier,
+    Screen screen, 
+    std::vector<std::string> species
+);
+
+void startGames(
+    bool debugEnabled,
+    double scaleMultiplier,
+    double speedMultiplier,
+    std::vector<Screen> screens, 
+    std::vector<std::string> species
+);
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
@@ -48,11 +63,16 @@ int main(int argc, char* argv[]) {
     if (args.count("help")) {
         return EXIT_SUCCESS;
     }
-    auto debugEnabled = args.count("debug") > 0;
     auto screens = screensMatching(args);
     auto species = selectedSpecies(args);
 
-    startGames(screens, species, debugEnabled);
+    startGames(
+        args.count("debug") > 0, 
+        (args.count("scale") > 0 ? args["scale"].as<double>() : 1.0), 
+        (args.count("speed") > 0 ? args["speed"].as<double>() : 1.0), 
+        screens, 
+        species
+    );
 
     // AppWindow appWindow;
     // appWindow.show();
@@ -69,6 +89,8 @@ po::variables_map parseArgs(int argc, char* argv[]) {
         ("help,h", "Shows this help message")
         ("species", po::value<std::vector<std::string>>()->multitoken(), "Species of pets to spawn (required)")
         ("screen", po::value<std::vector<std::string>>()->multitoken(), "Monitors the app will display on (part of the name)")
+        ("scale", po::value<double>(), "Scale multiplier")
+        ("speed", po::value<double>(), "Speed multiplier")
         ("debug", "Enable debug hud");
 
     po::variables_map vm;
@@ -89,22 +111,42 @@ void joinGameThreads() {
     }
 }
 
-void startGames(std::vector<Screen> screens, std::vector<std::string> species, bool debugEnabled) {
+void startGames(
+    bool debugEnabled,
+    double scaleMultiplier,
+    double speedMultiplier,
+    std::vector<Screen> screens, 
+    std::vector<std::string> species
+) {
     for (const Screen& screen : screens) {
-        startGame(screen, species, debugEnabled);
+        startGame(debugEnabled, scaleMultiplier, speedMultiplier, screen, species);
     }
 }
 
-void startGame(Screen screen, std::vector<std::string> species, bool debugEnabled) {
+void startGame(    
+    bool debugEnabled,
+    double scaleMultiplier,
+    double speedMultiplier,
+    Screen screen, 
+    std::vector<std::string> species
+) {
     Game* game = new Game(
         spritesRepo, speciesRepo, 
         screen.name, screen.frame,
-        GAME_FPS, ANIMATIONS_FPS, BASE_ENTITY_SIZE
+        GAME_FPS, ANIMATIONS_FPS, 
+        scaleMultiplier * BASE_ENTITY_SIZE
     );
 
-    auto entities = compactMap<std::string, Entity*>(species, [screen](const std::string species) {
-        return petsBuilder->build(species, screen.frame);
-    });
+    auto entities = compactMap<std::string, Entity*>(
+        species, [screen, speedMultiplier, scaleMultiplier](const std::string species) {
+            return petsBuilder->build(
+                scaleMultiplier, 
+                speedMultiplier, 
+                species, 
+                screen.frame
+            );
+        }
+    );
     game->addEntities(entities);
 
     GameWindow* window = new GameWindow(UI_FPS, game, debugEnabled, screen.name, screen.frame);

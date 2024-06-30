@@ -18,6 +18,8 @@ PetsBuilder::PetsBuilder(
 {}
 
 std::optional<Entity*> PetsBuilder::build(
+    double scaleMultiplier,
+    double speedMultiplier,
     const std::string& speciesId,
     const Rect& gameBounds
 ) {
@@ -33,11 +35,11 @@ std::optional<Entity*> PetsBuilder::build(
 
     auto frame = Rect(
         1.0, 1.0, 
-        baseSize * species->scale, 
-        baseSize * species->scale
+        baseSize * species->scale * scaleMultiplier, 
+        baseSize * species->scale * scaleMultiplier
     );
 
-    Entity* entity = new Entity(++nextId, animationFps, 50.0, 1.0, species, sprites, frame);
+    Entity* entity = new Entity(++nextId, animationFps, speedMultiplier, species, sprites, frame);
 
     bool isWallCrawler = std::find(species->capabilities.begin(), species->capabilities.end(), "WallCrawler") != species->capabilities.end();
 

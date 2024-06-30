@@ -30,7 +30,7 @@ TEST(GameTests, CanUpdateCascade) {
     Rect initialFrame = Rect(0.0, 0.0, 1.0, 1.0);        
     Species species("test", 1.0, 1.0);            
 
-    Entity ape(0, 10.0, 50.0, 1.0, &species, &spriteSet, initialFrame);
+    Entity ape(0, 10.0, 1.0, &species, &spriteSet, initialFrame);
     game->addEntity(&ape); 
     
     auto linearMovement = std::make_shared<LinearMovement>();
@@ -39,25 +39,25 @@ TEST(GameTests, CanUpdateCascade) {
     game->update(std::chrono::milliseconds(100));
     results = game->render();
     EXPECT_EQ(results.size(), 1);
-    EXPECT_EQ(results[0].frame.x, 0.06);
+    EXPECT_EQ(results[0].frame.x, 3);
 
     game->update(std::chrono::milliseconds(100));
     results = game->render();
     EXPECT_EQ(results.size(), 1);
-    EXPECT_EQ(results[0].frame, Rect(0.12, 0.0, 1.0, 1.0));
+    EXPECT_EQ(results[0].frame, Rect(6, 0.0, 1.0, 1.0));
 
     game->update(std::chrono::milliseconds(100));
     results = game->render();
     EXPECT_EQ(results.size(), 1);
-    EXPECT_EQ(results[0].frame, Rect(0.18, 0.0, 1.0, 1.0));
+    EXPECT_EQ(results[0].frame, Rect(9, 0.0, 1.0, 1.0));
 
     game->update(std::chrono::milliseconds(100));
     results = game->render();
     EXPECT_EQ(results.size(), 1);
-    EXPECT_EQ(results[0].frame, Rect(0.24, 0.0, 1.0, 1.0));
+    EXPECT_EQ(results[0].frame, Rect(12, 0.0, 1.0, 1.0));
 
     game->update(std::chrono::milliseconds(100));
     results = game->render();
     EXPECT_EQ(results.size(), 1);
-    EXPECT_EQ(results[0].frame, Rect(0.3, 0.0, 1.0, 1.0));
+    EXPECT_EQ(results[0].frame, Rect(15, 0.0, 1.0, 1.0));
 };

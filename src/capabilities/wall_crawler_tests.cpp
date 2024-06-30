@@ -12,7 +12,7 @@ TEST(WallCrawlerTests, WillStartGoingUpAfterReachingRightBound) {
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
 
-    Entity* entity = new Entity(0, 1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
+    Entity* entity = new Entity(0, 1.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
     entity->direction = Vector2d(1.0, 0.0);
     
     entity->addCapability(std::make_shared<LinearMovement>());
@@ -29,7 +29,7 @@ TEST(WallCrawlerTests, WillTeleportToTopLeftCornerAfterReachingTopRightCorner) {
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
 
-    Entity* entity = new Entity(0, 1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
+    Entity* entity = new Entity(0, 1.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
     entity->direction = Vector2d(0.0, -1.0);
     
     entity->addCapability(std::make_shared<LinearMovement>());
@@ -48,7 +48,7 @@ TEST(WallCrawlerTests, WillStartGoingDownAfterReachingTopBound) {
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
 
-    Entity* entity = new Entity(0, 1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
+    Entity* entity = new Entity(0, 1.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
     entity->direction = Vector2d(-1.0, 0.0);
     
     entity->addCapability(std::make_shared<LinearMovement>());
@@ -66,7 +66,7 @@ TEST(WallCrawlerTests, WillStartGoingRightAfterReachingBottomBound) {
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
 
-    Entity* entity = new Entity(0, 1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
+    Entity* entity = new Entity(0, 1.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
     entity->direction = Vector2d(0.0, 1.0);
     
     entity->addCapability(std::make_shared<LinearMovement>());

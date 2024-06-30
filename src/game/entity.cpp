@@ -13,7 +13,6 @@
 Entity::Entity(
     uint32_t id,
     double fps, 
-    double settingsBaseSize, 
     double settingsSpeedMultiplier,
     const Species* species, 
     const SpriteSet* spriteSet, 
@@ -30,7 +29,7 @@ Entity::Entity(
     currentSprite(Sprite("", std::vector<std::string>({}), 1.0))
 {
     auto movementSprite = species->movementPath;
-    setupSpeed(settingsBaseSize, settingsSpeedMultiplier);
+    setupSpeed(settingsSpeedMultiplier);
     changeSprite(movementSprite); 
 }
 
@@ -72,7 +71,6 @@ std::string Entity::description() const {
     return ss.str();
 }
 
-void Entity::setupSpeed(double settingsBaseSize, double settingsSpeedMultiplier) {
-    double sizeMultiplier = frame.w / settingsBaseSize;
-    speed = 30.0 * species->speed * sizeMultiplier * settingsSpeedMultiplier;
+void Entity::setupSpeed(double settingsSpeedMultiplier) {
+    speed = 30.0 * species->speed * settingsSpeedMultiplier;
 }

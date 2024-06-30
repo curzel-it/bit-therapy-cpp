@@ -9,7 +9,7 @@ TEST(LinearMovementTests, CanMoveEntityHorizontallyOnUpdate) {
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
 
-    Entity* entity = new Entity(0, 1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
+    Entity* entity = new Entity(0, 1.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
     entity->direction = Vector2d(1.0, 0.0);
     
     LinearMovement lm;
@@ -22,7 +22,7 @@ TEST(LinearMovementTests, CanMoveEntityVerticallyOnUpdate) {
     Species species("test", 100.0, 1.0);
     SpriteSet sprites;
 
-    Entity* entity = new Entity(0, 1.0, 100.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
+    Entity* entity = new Entity(0, 1.0, 1.0, &species, &sprites, Rect(0.0, 0.0, 100.0, 100.0));
     entity->direction = Vector2d(0.0, 1.0);
     
     LinearMovement lm;

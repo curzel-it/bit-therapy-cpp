@@ -23,6 +23,8 @@ public:
     );
 
     std::optional<Entity*> build(
+        double scaleMultiplier,
+        double speedMultiplier,
         const std::string& species,
         const Rect& gameBounds
     );

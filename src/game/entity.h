@@ -19,7 +19,7 @@ private:
     std::vector<std::shared_ptr<EntityCapability>> capabilities;
     Sprite currentSprite;
 
-    void setupSpeed(double settingsBaseSize, double settingsSpeedMultiplier);
+    void setupSpeed(double settingsSpeedMultiplier);
 
 public:
     uint32_t id;
@@ -31,7 +31,6 @@ public:
     Entity(
         uint32_t id,
         double fps, 
-        double settingsBaseSize, 
         double settingsSpeedMultiplier,
         const Species* species,
         const SpriteSet* spriteSet,

@@ -1,13 +1,13 @@
 # Bit Therapy C++
 
 ## What is this project?
-This is a C++ porting of my Swift macOS app [BitTherapy](https://apps.apple.com/app/desktop-pets/id1575542220), hopefully it will run on Windows some day!
+This is a C++ porting of my Swift macOS app [BitTherapy](https://apps.apple.com/app/desktop-pets/id1575542220).
 
-I'm using this project to **learn C++**, so it's gonna take a while.
-
-## ⏳ Status
+It's not feature-complete with the Swift version (and it's not intended to be), but it should run on Windows and Linux.
 
 Currently only macOS is supported.
+
+## ⏳ Status
 
 ### ✅ What's working
 * Basic Command line interface
@@ -16,14 +16,16 @@ Currently only macOS is supported.
 * Tests are passing
 
 ### ⏳ Coming soon
-* Loading capabilities from Species descriptor
-* Loading sprite definitions from Species descriptor
-* Windows support
+* Windows support (maybe)
 
 ### ❌ Known issues
-* n/a
+* Species descriptor is largely ignored
+* Not all capabilities are supported
 
 ## 🛠️ Building 
+> Warning!
+> Before you start, you should get [Species](https://github.com/curzel-it/bit-therapy/tree/main/Species) and [Sprites](https://github.com/curzel-it/bit-therapy/tree/main/PetsAssets) from the main repo and update the path.
+
 ```bash
 cd Sources/cpp
 brew install googletests
@@ -42,6 +44,8 @@ Allowed options:
   -h [ --help ]         Shows this help message
   --species arg         Species of pets to spawn (required)
   --screen arg          Monitors the app will display on (part of the name)
+  --speed arg           Speed multiplier (default 1.0)
+  --scale arg           Scale multiplier (default 1.0)
   --debug               Enable debug hud
 ```
 
