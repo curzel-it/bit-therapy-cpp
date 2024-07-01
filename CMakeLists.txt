@@ -18,7 +18,10 @@ include_directories("src/utils")
 file(GLOB MAIN_SOURCES "src/*.cpp")
 list(FILTER MAIN_SOURCES EXCLUDE REGEX ".*_tests\\.cpp$")
 
-file(GLOB CAPABILITIES_SOURCES "src/capabilities/*.cpp")
+file(GLOB ARGS_SOURCES "src/args/*.cpp")
+list(FILTER ARGS_SOURCES EXCLUDE REGEX ".*_tests\\.cpp$")
+
+file(GLOB CAPABILITIES_SOURCES "src/args/*.cpp")
 list(FILTER CAPABILITIES_SOURCES EXCLUDE REGEX ".*_tests\\.cpp$")
 
 file(GLOB GAME_SOURCES "src/game/*.cpp")
@@ -48,13 +51,9 @@ find_package(Qt6 COMPONENTS Widgets REQUIRED)
 # Json
 find_package(nlohmann_json 3.2.0 REQUIRED)
 
-# Boost
-find_package(Boost 1.85 REQUIRED COMPONENTS program_options)
-include_directories(${Boost_INCLUDE_DIRS})
-
 # App executable
-add_executable(Main ${MAIN_SOURCES} ${CAPABILITIES_SOURCES} ${GAME_SOURCES} ${PETS_SOURCES} ${RENDERING_SOURCES} ${SPECIES_SOURCES} ${SPRITES_SOURCES} ${UTILS_SOURCES})
-target_link_libraries(Main PRIVATE nlohmann_json::nlohmann_json Qt6::Widgets ${Boost_LIBRARIES})
+add_executable(Main ${MAIN_SOURCES} ${ARGS_SOURCES} ${CAPABILITIES_SOURCES} ${GAME_SOURCES} ${PETS_SOURCES} ${RENDERING_SOURCES} ${SPECIES_SOURCES} ${SPRITES_SOURCES} ${UTILS_SOURCES})
+target_link_libraries(Main PRIVATE nlohmann_json::nlohmann_json Qt6::Widgets)
 
 # Google Test
 enable_testing()
@@ -64,6 +63,8 @@ include(GoogleTest)
 # Get all sources except main 
 file(GLOB TEST_SOURCES "src/*.cpp")
 list(FILTER TEST_SOURCES EXCLUDE REGEX ".*main\\.cpp$")
+
+file(GLOB TEST_ARGS_SOURCES "src/args/*.cpp")
 
 file(GLOB TEST_CAPABILITIES_SOURCES "src/capabilities/*.cpp")
 
@@ -80,8 +81,8 @@ file(GLOB TEST_SPRITES_SOURCES "src/sprites/*.cpp")
 file(GLOB TEST_UTILS_SOURCES "src/utils/*.cpp")
 
 # Test executable
-add_executable(Test ${TEST_SOURCES} ${TEST_CAPABILITIES_SOURCES} ${TEST_GAME_SOURCES} ${TEST_PETS_SOURCES} ${TEST_RENDERING_SOURCES} ${TEST_SPECIES_SOURCES} ${TEST_SPRITES_SOURCES} ${TEST_UTILS_SOURCES})
-target_link_libraries(Test GTest::GTest GTest::Main Qt6::Widgets ${Boost_LIBRARIES})
+add_executable(Test ${TEST_SOURCES} ${TEST_ARGS_SOURCES} ${TEST_CAPABILITIES_SOURCES} ${TEST_GAME_SOURCES} ${TEST_PETS_SOURCES} ${TEST_RENDERING_SOURCES} ${TEST_SPECIES_SOURCES} ${TEST_SPRITES_SOURCES} ${TEST_UTILS_SOURCES})
+target_link_libraries(Test GTest::GTest GTest::Main Qt6::Widgets)
 
 # Test discovery
 gtest_discover_tests(Test)

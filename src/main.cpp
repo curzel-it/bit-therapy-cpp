@@ -1,19 +1,19 @@
 #include <QApplication>
-
-#include <boost/program_options.hpp>
 #include <chrono>
 #include <iostream>
 #include <memory>
 #include <thread>
+#include <vector>
+#include <string>
+#include <algorithm>
 
+#include "args/args.h"
 #include "game/game.h"
 #include "pets/pets.h"
 #include "rendering/rendering.h"
 #include "species/species.h"
 #include "sprites/sprites.h"
 #include "utils/utils.h"
-
-namespace po = boost::program_options;
 
 static const double GAME_FPS = 30.0;
 static const double UI_FPS = 30.0;
@@ -31,9 +31,8 @@ static PetsBuilder* petsBuilder = new PetsBuilder(speciesRepo, spritesRepo, ANIM
 
 std::vector<std::thread> gameThreads;
 
-po::variables_map parseArgs(int argc, char *argv[]);
-std::vector<Screen> screensMatching(po::variables_map args);
-std::vector<std::string> selectedSpecies(po::variables_map args);
+std::vector<Screen> screensMatching(const Arguments& args);
+std::vector<std::string> selectedSpecies(const Arguments& args);
 
 void joinGameThreads();
 std::thread startGameLoop(Game* game);
@@ -60,16 +59,16 @@ int main(int argc, char* argv[]) {
     speciesRepo->setup(SPECIES_PATH);
 
     auto args = parseArgs(argc, argv);
-    if (args.count("help")) {
+    if (args.help) {
         return EXIT_SUCCESS;
     }
     auto screens = screensMatching(args);
     auto species = selectedSpecies(args);
 
     startGames(
-        args.count("debug") > 0, 
-        (args.count("scale") > 0 ? args["scale"].as<double>() : 1.0), 
-        (args.count("speed") > 0 ? args["speed"].as<double>() : 1.0), 
+        args.debug, 
+        args.scale, 
+        args.speed, 
         screens, 
         species
     );
@@ -81,26 +80,6 @@ int main(int argc, char* argv[]) {
 
     joinGameThreads();
     return result;
-}
-
-po::variables_map parseArgs(int argc, char* argv[]) {
-    po::options_description desc("Allowed options");
-    desc.add_options()
-        ("help,h", "Shows this help message")
-        ("species", po::value<std::vector<std::string>>()->multitoken(), "Species of pets to spawn (required)")
-        ("screen", po::value<std::vector<std::string>>()->multitoken(), "Monitors the app will display on (part of the name)")
-        ("scale", po::value<double>(), "Scale multiplier")
-        ("speed", po::value<double>(), "Speed multiplier")
-        ("debug", "Enable debug hud");
-
-    po::variables_map vm;
-    po::store(po::parse_command_line(argc, argv, desc), vm);
-    po::notify(vm);
-
-    if (vm.count("help")) {
-        std::cout << desc << "\n";
-    }
-    return vm;
 }
 
 void joinGameThreads() {
@@ -156,12 +135,11 @@ void startGame(
     gameThreads.push_back(std::move(newThread));
 }
 
-std::vector<Screen> screensMatching(po::variables_map args) {
-    if (args.count("screen")) {
-        auto names = args["screen"].as<std::vector<std::string>>();
-        auto screens = screensMatching(names);
+std::vector<Screen> screensMatching(const Arguments& args) {
+    if (!args.screens.empty()) {
+        auto screens = screensMatching(args.screens);
 
-        if (screens.size() == 0) {
+        if (screens.empty()) {
             std::cerr << "No matching screens found! The following one(s) should be available:" << std::endl;
 
             for (const Screen& screen : listAvailableScreens()) {
@@ -172,7 +150,7 @@ std::vector<Screen> screensMatching(po::variables_map args) {
         return screens;
     } else {
         auto screens = listAvailableScreens();
-        if (screens.size() == 0) {
+        if (screens.empty()) {
             std::cerr << "No screen found!" << std::endl;
             std::exit(EXIT_FAILURE);
         }
@@ -180,11 +158,11 @@ std::vector<Screen> screensMatching(po::variables_map args) {
     }
 }
 
-std::vector<std::string> selectedSpecies(po::variables_map args) {
-    if (args.count("species")) {
-        return args["species"].as<std::vector<std::string>>();
+std::vector<std::string> selectedSpecies(const Arguments& args) {
+    if (!args.species.empty()) {
+        return args.species;
     } else {
-        std::cerr << "No species selected, plase run with `--species ape` or something" << std::endl;
+        std::cerr << "No species selected, please run with `--species ape` or something" << std::endl;
         std::exit(EXIT_FAILURE);
     }
 }
