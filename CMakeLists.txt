@@ -5,6 +5,8 @@ project(BitTherapy VERSION 1.0)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+set(CMAKE_PREFIX_PATH "../qt-6.7.2-static/lib/cmake")
+
 include_directories("src")
 include_directories("src/capabilities")
 include_directories("src/game")
@@ -46,6 +48,7 @@ list(FILTER UTILS_SOURCES EXCLUDE REGEX ".*_tests\\.cpp$")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
+set(Qt6_DIR "../qt-6.7.2-static/lib/cmake/Qt6")
 find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 # App executable

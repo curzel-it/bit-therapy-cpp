@@ -14,6 +14,7 @@
 
 #include <algorithm>
 #include <format>
+#include <ranges>
 
 #include "../game/game.h"
 #include "../sprites/sprites.h"
