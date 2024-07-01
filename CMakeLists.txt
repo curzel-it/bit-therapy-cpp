@@ -48,12 +48,9 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
-# Json
-find_package(nlohmann_json 3.2.0 REQUIRED)
-
 # App executable
 add_executable(Main ${MAIN_SOURCES} ${ARGS_SOURCES} ${CAPABILITIES_SOURCES} ${GAME_SOURCES} ${PETS_SOURCES} ${RENDERING_SOURCES} ${SPECIES_SOURCES} ${SPRITES_SOURCES} ${UTILS_SOURCES})
-target_link_libraries(Main PRIVATE nlohmann_json::nlohmann_json Qt6::Widgets)
+target_link_libraries(Main PRIVATE Qt6::Widgets)
 
 # Google Test
 enable_testing()
