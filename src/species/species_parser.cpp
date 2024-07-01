@@ -10,7 +10,7 @@
 
 #include "../utils/utils.h"
 
-#include "../dependencies/nlohmann_json.hpp"
+#include "../../dependencies/nlohmann_json.hpp"
 
 static const std::string SPECIES_ANIMATION_POSITION_FROM_ENTITY_BOTTOM_LEFT = "fromEntityBottomLeft";
 

@@ -1,5 +1,5 @@
-src/dependencies/*
-!src/dependencies/
+dependencies/*
+!dependencies/
 
 build/
 
