@@ -21,7 +21,7 @@ list(FILTER MAIN_SOURCES EXCLUDE REGEX ".*_tests\\.cpp$")
 file(GLOB ARGS_SOURCES "src/args/*.cpp")
 list(FILTER ARGS_SOURCES EXCLUDE REGEX ".*_tests\\.cpp$")
 
-file(GLOB CAPABILITIES_SOURCES "src/args/*.cpp")
+file(GLOB CAPABILITIES_SOURCES "src/capabilities/*.cpp")
 list(FILTER CAPABILITIES_SOURCES EXCLUDE REGEX ".*_tests\\.cpp$")
 
 file(GLOB GAME_SOURCES "src/game/*.cpp")
