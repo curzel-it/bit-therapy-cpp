@@ -17,10 +17,6 @@ All assets (including images, sound files, etc.) are licensed under a custom lic
    - Incorporating the assets into any application, software, or product, whether commercial or non-commercial, without explicit permission.
    - Any form of commercial exploitation outside of the permitted uses.
 
-## Third Party Stuff
-Please note third party stuff come with it's own licensing: 
-* [nlohmann_json](https://github.com/nlohmann/json/)
-
 For any usage not covered above, or for questions regarding licensing, please contact the author.
 
 All rights are reserved unless explicitly granted.

@@ -23,17 +23,25 @@ Currently only macOS is supported.
 * Not all capabilities are supported
 
 ## 🛠️ Building 
-> Warning!
-> Before you start, you should get [Species](https://github.com/curzel-it/bit-therapy/tree/main/Species) and [Sprites](https://github.com/curzel-it/bit-therapy/tree/main/PetsAssets) from the main repo and update the path.
+### Getting Assets
+Assets are currently stored in the main repo of the app, get them:
+* [Species](https://github.com/curzel-it/bit-therapy/tree/main/Species)
+* [Sprites](https://github.com/curzel-it/bit-therapy/tree/main/PetsAssets)
+Place them wherever and update the paths in `config_tests.h` and `main.cpp`.
 
+### Dependencies
+#### The basics
+```brew install cmake googletests ninja```
+
+#### Json Parser
+I'm using [Nholmann Json](https://github.com/nlohmann/json), because I have no idea what I am doing, get the single include file from [here](https://github.com/nlohmann/json/blob/develop/single_include/nlohmann/json.hpp) and copy it under `dependencies/nlohmann_json.hpp`.
+
+### Finally, build
 ```bash
-cd Sources/cpp
-brew install googletests
-brew install cmake
 cd scripts
 sh build.sh
-./Main --species ape --species betta --screen ben
 ```
+Executable is then found at `build/Main`.
 
 ## 🚀 Running
 Well, first follow the building steps, then tou can run the app from the command line, on any number of monitors with any number of pets.<br>
